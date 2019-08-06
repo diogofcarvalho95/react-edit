@@ -1,0 +1,154 @@
+//Conditional
+function ex1(i){
+  if (i < 5 ){
+    return i + 2;
+  } else if (i >= 5){
+    return i + 3;
+  }
+}
+console.log(ex1(2));
+
+
+
+//Fizz
+function ex2(i) {
+  if (i % 3 === 0 && i % 5 === 0) {
+    return 'fizz';
+  } else if (i % 3 === 0) {
+     return 'buzz';
+  } else if (i % 5 === 0 ) {
+    return 'fizzbuzz';
+  }
+}
+console.log(ex2(30));
+
+
+
+
+//Converter temperaturas
+function celsius(i) {
+  const temp = i * 9 / 5 + 32;
+  return temp;
+}
+function fahrenheit(i){
+  const temp = (i - 32) * 5 / 9;
+  return temp;
+}
+console.log(celsius(40));
+console.log(fahrenheit(104));
+
+
+
+//String
+function ex4(str){
+  if (str.charAt(0) !== "a" && str.charAt(1) !== "b") {
+    str = 'ab' + str;
+  }
+  console.log(str);
+}
+ex4('kappa');
+
+
+
+
+//Salários
+function ex5(s, pct){
+ const newSalaries = s
+    .map((salary) => {
+       return salary * (1 + pct);
+    });
+  return newSalaries;
+}
+let salarios = [750, 1300, 4500];
+let pct = 0.5;
+console.log(ex5(salarios, pct));
+
+
+
+
+//Index an object
+function ex6(i) {
+  let arr = i.reduce(function (acumulador, element) {
+    acumulador[element.id] = element;
+    return acumulador;
+  }, {});  
+  return arr;
+}
+let obj = [
+  {name:"teste1", id:1},
+  {name:"teste2", id:2},
+];
+console.log(ex6(obj));
+
+
+
+
+//Remove elements from list
+function ex7(i) {
+  let result = i.filter(function (number) { 
+    return number > 10;
+  });
+  return result;
+}
+let numbers = [1, 2, 3, 4, 20];
+console.log(ex7(numbers));
+
+
+
+
+//Largest number
+function ex8(y) {
+  let evens = y.filter(function(x) {
+     return x % 2 === 0;
+  });
+  let largest = 0;
+  for (i=0; i<=largest;i++){
+    if (evens[i]>largest) {
+       largest=evens[i];
+    }
+  }
+  return largest;
+}
+let nr = [1, 2, 3, 4, 20, 100, 400, 503];
+console.log(ex8(nr));
+
+
+
+
+//Multiply evens
+function ex9(i) {
+  return i.filter(function(i) {
+     return i % 2 === 0;
+  }).map(function (i) { 
+      return i * 2;
+  });
+}
+let nrs = [1, 2, 3, 4, 20, 55, 77, 88];
+console.log(ex9(nrs));
+
+
+
+
+//swap
+function ex10(arr) {
+  [arr[0], arr[arr.length - 1]] = [arr[arr.length - 1], arr[0]];
+  return arr;
+}
+
+let nr_s = [1, 2, 3, 4, 20, 55, 77, 88];
+console.log(ex10(nr_s));
+
+
+
+//Voewls
+function ex12(str) {
+  let vowels = ["a", "e", "i", "o", "u"];
+  let counter = 0;
+  for (let letter of str.toLowerCase()){
+    if (vowels.includes(letter)) {
+       counter++
+    }
+  }
+  return counter;
+}
+console.log(ex12('contar as vogais'));

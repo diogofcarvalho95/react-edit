@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+​
+    <h2>React skeleton</h2>
+​
+    <!-- We will put our React component inside this div. -->
+    <div id="ex1"></div>
+    <div id="ex2"></div>
+    <div id="ex3"></div>
+    <div id="ex4"></div>
+    <div id="ex5"></div>
+    <div id="ex6"></div>
+​
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+​    <script type="text/javascript">
+      //ex1
+      const ex1 = React.createElement('h2', null, 'Hello World');
+      //ex2
+      const ex2 = React.createElement('ul', null,
+        React.createElement('li', { key: 1 }, 'one'), 
+        React.createElement('li', { key: 2 }, 'two'), 
+        React.createElement('li', { key: 3 }, 'three'), 
+        React.createElement('li', { key: 4 }, 'four'), 
+        React.createElement('li', { key: 5 }, 'five')
+      );
+      //ex3
+      const ex3 = React.createElement('div',{ id: "parent_id", className: "parent_div" },
+        React.createElement('ul', null, 
+          React.createElement('li', null, 'one', 
+            React.createElement('ul', null, 
+              React.createElement('li', null,'one one'),
+              React.createElement('li', null,'one two'),
+            ),
+          ), 
+          React.createElement('li', null, 'two', 
+            React.createElement('ul', null, 
+              React.createElement('li', null,'one two'),
+              React.createElement('li', null,'two two'),
+            ),
+          ),
+        )
+      );
+      //ex4
+      const ex4 = [
+        React.createElement('h1', {className: 'blue', style: {color: 'blue'}}, 'Bigger'),
+        React.createElement('h2', {className: 'red', style: {color: 'red'}}, 'Not so big'),
+        React.createElement('h3', {className: 'yellow', style: {color: 'yellow'}}, 'H3 text'),
+        React.createElement('h4', {className: 'green', style: {color: 'green'}}, 'Smaller'),
+      ];
+      //ex5
+      const items = [3, 4, 5, 2, 1];
+      const ex5 = React.createElement(
+        'ul',
+        null,
+        items.sort().map(nr => React.createElement('li', null, nr))
+      );
+      //ex6
+      const items2 = [
+        {
+            class: 'number_two',
+            number: 2
+        },
+        {
+            class: 'number_three',
+            number: 3
+        },
+        {
+            class: 'number_four',
+            number: 4
+        },
+        {
+            class: 'number_one',
+            number: 1
+        }
+      ];
+      const ex6 = React.createElement(
+        'ul',
+        null,
+        items2.sort((a, b) => (a.number > b.number) ? 1 : -1).slice(0, 2).map(item => React.createElement('li', { className: item.class }, item.number))
+      );
+      //render
+      ReactDOM.render(
+        ex1, document.getElementById('ex1')
+      );
+      ReactDOM.render(
+        ex2, document.getElementById('ex2')
+      );
+      ReactDOM.render(
+        ex3, document.getElementById('ex3')
+      );
+      ReactDOM.render(
+        ex4, document.getElementById('ex4')
+      );
+      ReactDOM.render(
+        ex5, document.getElementById('ex5')
+      );
+      ReactDOM.render(
+        ex6, document.getElementById('ex6')
+      );
+    </script>
+  </body>
+</html>

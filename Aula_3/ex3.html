@@ -14,55 +14,51 @@
 
     <script type="text/babel">
       const items = {
-        '2': {
-            class: 'number_two',
-            number: 2
-        },
-        'number_three': {
-            class: 'number_three',
-            number: 3
-        },
-        '4': {
-            class: 'number_four',
-            number: 4
-        },
-        'number_one': {
-            class: 'number_one',
+        '1': {
+            class: 'to_remove',
             number: 1
+        },
+        '2': {
+            class: '',
+            number: 2
         }
       };
 
-      const arr = Object.keys(items).filter(function(key) {
-        return items[key].number > 2;
-      }).sort((a, b) => (a.number > b.number) ? 1 : -1).map((key) => {
+      const arr = Object.keys(items).map((key) => {
         return items[key];
       });
       
-      class Ex8 extends React.Component {
+      class Ex9 extends React.Component {
         constructor(props){
           super(props);
+          this.state = {
+            list: this.props.list
+          }
+          this.changeOrder = this.changeOrder.bind(this);
         }
-        insideul (items) {
-          return <ul>{
-            items.map((item)=> {
-              return <li className={item.class}>{item.number}</li>
-            })
-          }</ul>
+        changeOrder () {
+          const copia = [].concat(this.state.list);
+          copia.reverse();
+          this.setState({
+            list: cp
+          });
         }
         render() {
-          const uls = this.insideul(this.props.list)
-          const listItems = this.props.list.map((item) =>
-            <li>{item.number}{uls}</li> 
+          const listItems = this.state.list.map((item) =>
+            <li className={item.class}>{item.number}</li> 
           );
           return (
+            <div>
             <ul>
               {listItems}
             </ul>
+            <button onClick={this.changeOrder}>Click me</button>
+            </div>
           );
         }
       }
       ReactDOM.render(
-        <Ex8 list={arr}/>,
+        <Ex9 list={arr}/>,
         document.getElementById('container')
       );
    </script>

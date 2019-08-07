@@ -16,20 +16,19 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
 
     <script type="text/babel">
-      function ItemList(props) {
-        const list = props.list;
-        const listItems = list.map((item)=>
-          <li key={item}>{item}</li>
-        );
-        return (
-          <ul>{listItems}</ul>
-        );
+      const lista7 = ['First item', 'Second item'];
+      class Exercicio7 extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+        render() {
+          const listItems = this.props.name.map((item) =>
+            <li>{item}</li>
+          );
+          return <ul className="items">{listItems}</ul>;
+        }
       }
-      const list = ['first item', 'second item'];
-      ReactDOM.render(
-        <ItemList list={list} />,
-        document.getElementById('container')
-      );
+      ReactDOM.render(<Exercicio7 name={lista7} />, document.getElementById('container'));
    </script>
 
  </body>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <meta charset="UTF-8" />
+   <title>React App</title>
+ </head>
+ <body>
+
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+
+    <script type="text/babel">
+
+      const fieldsList = [
+        {
+          name: 'name',
+          type: 'text',
+          label: '',
+          placeholder: 'Nome:',
+        },
+        {
+          name: 'email',
+          type: 'email',
+          label: '',
+          placeholder: 'Email:',
+        },
+        {
+          name: 'phone',
+          type: 'tel',
+          label: '',
+          placeholder: 'Telefone:',
+        },
+        {
+          name: 'mensagem',
+          type: 'textarea',
+          label: '',
+          placeholder: 'Mensagem:',
+        },
+        {
+          name: 'termos',
+          type: 'checkbox',
+          label: 'Li e aceito os termos e condições',
+          placeholder: '',
+        },
+      ];
+      
+      class Ex12 extends React.Component {
+        constructor(props){
+          super(props);
+
+          const state = props.fields.reduce((acc, current) => {
+            acc[current.name] = '';
+            return acc;
+          }, {})
+          this.state = state;
+
+          this.enviarForm = this.enviarForm.bind(this);
+          this.handleChange = this.handleChange.bind(this);
+          this.BuildFields = this.BuildFields.bind(this);
+          this.BuildField = this.BuildField.bind(this);
+          this.buildNormal = this.buildNormal.bind(this);
+          this.buildCheckbox = this.buildCheckbox.bind(this);
+          this.buildTextarea = this.buildTextarea.bind(this);
+        }
+        enviarForm(ev) {
+          ev.preventDefault();
+          console.log(this.state);
+        }
+        handleChange(evt) {
+          this.setState({[evt.target.name]: evt.target.value})
+        }
+        buildCheckbox(item){
+          return <div><label>{item.label}<input name={item.name} type={item.type} onChange={this.handleChange}/></label></div>
+        }
+        buildTextarea(item){
+          return <textarea name={item.name} placeholder={item.placeholder} onChange={this.handleChange}/>
+        }
+        buildNormal(item){
+          return <div><input name={item.name} type={item.type} placeholder={item.placeholder} onChange={this.handleChange}/></div>
+        }
+        BuildField(item){
+          switch (item.type) {
+            case 'text':
+            case 'email':
+            case 'tel':
+              return this.buildNormal(item);
+              break;
+            case 'textarea':
+              return this.buildTextarea(item);
+              break;
+            case 'checkbox':
+              return this.buildCheckbox(item);
+              break;
+            default:
+              
+              break;
+          }
+        }
+        BuildFields(items){
+          return items.map(this.BuildField);
+        }
+        render() {
+          // const listFields = this.state.fields.map((field) =>
+          //   <input name={field.name} type={field.type} placeholder={field.placeholder} onChange={this.handleChange}/> 
+          // );
+          return (
+            <form onSubmit={this.enviarForm}>
+              {this.BuildFields(this.props.fields)}
+              <input type="submit" value="Enviar" />
+            </form>
+          );
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <Ex12 fields={fieldsList}/>
+        </div>,
+        document.getElementById('container')
+      );
+   </script>
+
+ </body>
+</html>

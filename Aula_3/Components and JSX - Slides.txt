@@ -1,0 +1,192 @@
+# React components
+
+- Components allow us to reuse the same DOM structure for different recipes or different sets of data.
+- Opportunity to break down your elements into reusable pieces
+- The simplest way to define a component is to write a JavaScript function
+
+```js
+function Welcome(props) {
+  React.createElement('h1', null, `Hello, ${props.h1Text}`);
+}
+```
+
+- This function is a valid React component because it accepts a single props object argument with data and returns a React element. We call such components `function components` because they are JavaScript functions.
+- We can also use an ES6 class to define a component
+
+```js
+class Welcome extends React.Component {
+  render() {
+    return React.createElement('h1', null, `Hello, ${this.props.name}`);
+  }
+}
+```
+
+- Rendering a Component:
+
+```js
+const elem = React.createElement(Welcome, {name: 'Fellows'}, null);
+```
+
+`Create components extending React Components`:
+
+```js
+const items = ["Food 1", "Food 2"];
+
+class ItemsList extends React.Component {
+
+  renderListItem(ingredient, i) {
+    return React.createElement("li", { key: i }, ingredient)
+  }
+
+  render() {
+    return React.createElement("ul", {className: "ingredients"},
+      this.props.items.map(this.renderListItem) )
+  }
+}
+
+const list = React.createElement(ItemsList, {items}, null)
+
+ReactDOM.render(list, document.getElementById('container'));
+```
+
+- If the props will not change we should use the property directly in the view
+- If the props will change we should assign to the state of the component
+- To manipulate state we should use `this.setState({});``
+
+```js
+this.state = {
+  name: props.name
+}
+
+this.setState({name: 'new_name'});
+```
+
+- The props should be assigned on the constructor of the class
+
+```js
+class List extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: this.props.name
+    }
+  }
+
+  render() {
+    return React.createElement('h1', null, this.state.name);
+  }
+}
+```
+
+# Component lifecycles
+
+- `componentDidMount()` method runs after the component output has been rendered to the DOM
+- `componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed
+- `shouldComponentUpdate(nextProps, nextState)` to let React know if a component’s output is not affected by the current change in state or props
+- `componentDidUpdate(prevProps, prevState, snapshot)` componentDidUpdate() is invoked immediately after updating occurs. This method is not called for the initial render.
+
+```js
+componentDidUpdate(prevProps, nextProps) {
+
+  if (this.state.userID !== prevProps.userID) {
+    this.fetchData(this.props.userID);
+  }
+}
+```
+
+# JSX
+
+- This tag syntax is neither a string nor HTML
+- It is a syntax extension to JavaScript
+- JSX produces React elements
+
+```js
+const element = <h1>Hello, world!</h1>;
+```
+
+- Using expressions in JSX
+
+```js
+const foo = 'world';
+const element = <h1>Hello, {foo}</h1>;
+
+ReactDOM.render(
+  element,
+  document.getElementById('container')
+);
+```
+
+- We can use functions inside expressions
+
+```js
+function formatText(name) {
+  return 'Hello, ' + name;
+}
+
+const name = 'React';
+
+const element = (
+  <h1>
+    Hello, {formatText(name)}!
+  </h1>
+);
+
+ReactDOM.render(
+  element,
+  document.getElementById('container')
+);
+```
+
+- Using attributes with JSX
+
+```js
+const element = <h1 class={some.class}></h1>;
+```
+
+- JSX may contain multiline:
+
+```js
+const element = (
+  <div>
+    <h1>Hello</h1>
+    <h2>I'm here</h2>
+  </div>
+);
+```
+
+```js
+stuff() {
+  return <h2>Hello again</h2>;
+}
+
+render() {
+  return (
+    <div>
+      <h1>Hello {this.props.name}</h1>
+      {this.stuff()}
+    </div>
+  );
+}
+```
+
+- Rendering lists
+
+```js
+function ItemList(props) {
+  const list = props.list;
+  const listItems = list.map((item) =>
+    <li>{item}</li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+const list = [1, 2, 3];
+ReactDOM.render(
+  <ItemList list={list} />,
+  document.getElementById('root')
+);
+```

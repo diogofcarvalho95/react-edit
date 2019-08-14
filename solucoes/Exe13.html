@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+
+    <script type="text/babel">
+        const promise = () => {
+          return new Promise(function (resolve, reject) {
+            setTimeout(() => {
+              return resolve('React');
+            }, 1000);
+          });
+        };
+
+        class ItemsList extends React.Component {
+
+            constructor(props) {
+              super(props);
+
+              this.state = {
+                name: ''
+              };
+            }
+
+            componentDidMount() {
+              promise().then((data) => {
+                this.setState({name: data});
+              });
+            }
+
+            render() {
+                return React.createElement('h1', null, `Hello ${this.state.name}`);
+            }
+        }
+        const list = React.createElement(ItemsList, null, null);
+
+        ReactDOM.render(list, document.getElementById('container'));
+    </script>
+
+  </body>
+</html>

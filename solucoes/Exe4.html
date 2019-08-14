@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <style>
+    .blue {
+        color: blue;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .yellow {
+        color: yellow;
+    }
+
+    .green {
+        color: green;
+    }
+    </style>
+
+    <script>
+        const items = [
+            {
+                type: 'h1', class: 'blue', text: 'Bigger'
+            },
+            {
+                type: 'h2', class: 'red', text: 'Not so big'
+            },
+            {
+                type: 'h3', class: 'yellow', text: 'H3 text'
+            },
+            {
+                type: 'h4', class: 'green', text: 'Smaller'
+            },
+        ];
+
+        const childrens = items.map((item) => {
+            return React.createElement(item.type, {className: item.class}, item.text);
+        });
+        const elements = React.createElement('div', null, childrens);
+
+        ReactDOM.render(
+          elements,
+          document.getElementById('container')
+        )
+    </script>
+
+  </body>
+</html>

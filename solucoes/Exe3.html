@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script>
+        const items = ['One', 'Two'];
+        const insideItems = [['One one', 'One two'], ['Two one', 'Two two']];
+
+        const insideUls = insideItems.map((item, index) => {
+            return React.createElement('ul', null, insideItems[index].map((liItem) => {
+                return React.createElement('li', null, liItem);
+            }));
+        });
+
+        const outsideUL = React.createElement('ul', {className: 'parent_ul'}, items.map((item, index) => {
+            return React.createElement('li', null, item, insideUls[index]);
+        }));
+        const elements = React.createElement("div", {id: 'parent_id', className: 'parent_div'}, outsideUL);
+
+        ReactDOM.render(
+          elements,
+          document.getElementById('container')
+        )
+    </script>
+
+  </body>
+</html>

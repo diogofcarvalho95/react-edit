@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+
+    <script type="text/babel">
+        const items = [{ id: 'to_remove', number: 1}, { id: '2', number: 2}];
+
+        const log = () => {
+          console.log('Logging');
+        };
+
+        const remove = () => {
+          document.getElementById('to_remove').remove();
+        }
+
+        class ItemsList extends React.Component {
+
+            constructor(props) {
+              super(props);
+
+              this.state = {
+                  items: props.items,
+                  handleClick: props.handleClick,
+                  buttonText: props.buttonText
+              };
+            }
+
+            renderListItem(item, i) {
+                return React.createElement("li", { key: i, id: item.id }, item.number)
+            }
+
+            render() {
+              const btn = React.createElement('button', {onClick: this.state.handleClick }, this.state.buttonText);
+
+              return React.createElement("ul", null,
+                this.state.items.map(this.renderListItem), btn )
+            }
+        }
+        const list = React.createElement(ItemsList, {items, handleClick: log, buttonText: 'Log'}, null);
+        const list2 = React.createElement(ItemsList, {items, handleClick: remove, buttonText: 'Remove DOM'}, null);
+        const div = React.createElement('div', null, list, list2);
+
+        ReactDOM.render(div, document.getElementById('container'));
+    </script>
+
+  </body>
+</html>

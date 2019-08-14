@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React App</title>
+  </head>
+  <body>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script>
+        const items = [
+            {
+                class: 'number_two',
+                number: 2
+            },
+            {
+                class: 'number_three',
+                number: 3
+            },
+            {
+                class: 'number_four',
+                number: 4
+            },
+            {
+                class: 'number_one',
+                number: 1
+            }
+        ];
+
+        const ul = React.createElement('ul', null, items
+            .filter((item) => { return item.number < 3; })
+            .sort((x, y) => { return x.number - y.number; })
+            .map((item) => {
+                return React.createElement('li', {className: item.class, key: item.number}, item.number);
+        }));
+        const elements = React.createElement("div", null, ul);
+
+        ReactDOM.render(
+          elements,
+          document.getElementById('container')
+        )
+    </script>
+
+  </body>
+</html>
